@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricerca - TVmaze Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='orange'>▶</text></svg>">
+</head>
+<body>
+    <main class="main-content">
+        <section class="page-section">
+            <div class="search-form">
+                <h2>Ricerca Serie TV</h2>
+                <div class="form-group">
+                    <label for="show-input">Titolo serie:</label>
+                    <div class="input-wrapper">
+                        <input
+                            type="text"
+                            id="show-input"
+                            placeholder="Es: Dark, Breaking Bad, Friends..."
+                            autocomplete="off"
+                            autofocus
+                        />
+                        <!-- TODO 2: Aggiungi le classi CSS mancanti per mostrare correttamente il pulsante di ricerca -->
+                        <button id="btn-search-show" class="">Cerca</button>
+                    </div>
+                    <div id="show-suggestions" class="suggestions hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section result-section-with-favorite">
+            <div id="result-container" class="result-container"></div>
+        </section>
+
+        <section class="page-section details-section">
+            <div id="show-details-container" class="details-container"></div>
+        </section>
+
+        <section class="page-section">
+            <div class="search-form">
+                <h3>Risultati rapidi</h3>
+                <div id="matches-container" class="result-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="../scripts/pages/search.js"></script>
+</body>
+</html>

@@ -85,15 +85,39 @@ export async function getShowById(showId) {
     // Prima controlla che l'id sia un numero intero positivo, altrimenti solleva un errore.
     // Poi esegui tre fetch con la funzione requestJson:
     // - una per i dettagli della serie (endpoint /shows/{id}) --> show
-    // - una per il cast (endpoint /shows/{id}/cast) --> cast
-    // - una per gli episodi (endpoint /shows/{id}/episodes) --> episodes
-    // Restituisci un oggetto che unisce i dettagli della serie con un campo _embedded che contiene cast ed episodi.
+    try
+    {
+            if (!(showId>=0))
+                {
+                    throw new Error("questo id non esiste")
+                }
+            let rispostaDettagli= await fetch(`${API_BASE}/shows/${showId}`)
+        // - una per il cast (endpoint /shows/{id}/cast) --> cast
+            let rispostaCast= await fetch(`${API_BASE}/shows/${showId}/cast`)
+        // - una per gli episodi (endpoint /shows/{id}/episodes) --> episodes
+            let rispostaEpisodes= await fetch(`${API_BASE} /shows/${showId}/episodes`)
+            if(!rispostaDettagli||!rispostaCast||!rispostaEpisodes)
+            {
+                throw new Error("c'è un errore di fetch")
+            }
+            let datiShow=await rispostaDettagli.json()
+            let datiCast=await rispostaCast.json()
+            let datiEpisodes=await rispostaEpisodes.json()
+            let cast=datiCast
+            let episodes=datiEpisodes
+            //let show=datiShow
+            return {
+                ...show,
+                _embedded: {
+                    cast:cast,
+                    episodes:episodes,
+                },
+                // Restituisci un oggetto che unisce i dettagli della serie con un campo _embedded che contiene cast ed episodi.
+            };
+        }
+        catch(error)
+        {
+            console.error(error)
+        }
 
-    return {
-        ...show,
-        _embedded: {
-            cast,
-            episodes,
-        },
-    };
 }

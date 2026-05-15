@@ -49,6 +49,14 @@ export function createShowCard(show, titleOverride = "", options = {}) {
     // - p con classe "show-summary" che mostra la summary ridotta (usa getSafeSummary).
     // Per tutti usare sanitizeHTML per inserire i dati dinamici in modo sicuro.
     card.innerHTML = `
+    <div class= "series-title-block">
+    <h2>
+    ${sanitizeHTML(title)}
+    </h2>
+    <p class= "series-status">
+    ${sanitizeHTML(status)}
+    </p>
+    </div>
         <div class="series-card-header">
         </div>
 
@@ -57,6 +65,13 @@ export function createShowCard(show, titleOverride = "", options = {}) {
                 ${poster ? `<img class="show-poster" src="${sanitizeHTML(poster)}" alt="Poster ${sanitizeHTML(show.name)}">` : "<div class='show-poster-placeholder'>No image</div>"}
             </div>
             <div class="series-meta show-meta">
+            <div class="temp-main">
+            ${sanitizeHTML(rating)}
+            </div>
+            <div class="temp-desc">
+            ${sanitizeHTML(genres)}
+            </div>
+            <p class="show-summary"> ${sanitizeHTML(getSafeSummary(show))}</p>
             </div>
         </div>
 
